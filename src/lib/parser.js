@@ -1,8 +1,5 @@
 export const parseCard = input => {
-  let colors = (input || '').split('|').map(color => color.toLowerCase())
-  if (!colors.length) {
-    return null
-  }
+  let colors = (input || '').split('|').filter(value => value).map(color => color.toLowerCase())
   if (!colors.every(color => color.match(/^(red|blue|green|black|white)$/))) {
     return null
   }
@@ -18,6 +15,6 @@ export const parseCost = input => {
   }
   return {
     count,
-    filter: card => colors.some(color => card.indexOf(color) !== -1),
+    filter: card => !colors.length || colors.some(color => card.indexOf(color) !== -1),
   }
 }
